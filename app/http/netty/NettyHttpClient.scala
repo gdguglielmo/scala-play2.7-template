@@ -1,8 +1,8 @@
 package http.netty
 
-import com.typesafe.config.Config
 import http.{HttpClient, HttpRequest, HttpResponse}
 import org.asynchttpclient.{AsyncHttpClient, DefaultAsyncHttpClient, DefaultAsyncHttpClientConfig}
+import play.api.Configuration
 import play.api.libs.json.Reads
 
 import scala.concurrent.{ExecutionContext, Future, Promise}
@@ -28,15 +28,15 @@ trait NettyHttpClient extends HttpClient
 }
 
 object NettyHttpClient {
-  def asyncHttpClient(config: Config): AsyncHttpClient = {
+  def asyncHttpClient(config: Configuration): AsyncHttpClient = {
     val clientConfig = new DefaultAsyncHttpClientConfig.Builder()
-      .setAcceptAnyCertificate(true)
       .setCompressionEnforced(false)
       .setConnectionTtl(0)
-      .setConnectTimeout(config.getInt("http-client.connection-timeout"))
-      .setMaxConnections(config.getInt("http-client.max-connections"))
-      .setMaxRedirects(config.getInt("http-client.max-redirects"))
-      .setSslSessionTimeout(config.getInt("http-client.session-timeout"))
+      .setReadTimeout(config.get[Int]("http-client.read-timeout"))
+      .setConnectTimeout(config.get[Int]("http-client.connection-timeout"))
+      .setMaxConnections(config.get[Int]("http-client.max-connections"))
+      .setMaxRedirects(config.get[Int]("http-client.max-redirects"))
+      .setSslSessionTimeout(config.get[Int]("http-client.session-timeout"))
       .setMaxRequestRetry(3)
       .setUseProxyProperties(false) // Do not use the proxy defined in program JVM parameters
       .build

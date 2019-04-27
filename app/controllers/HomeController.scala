@@ -26,4 +26,8 @@ class HomeController @Inject()(cc: ControllerComponents,
     thingsService.getThingsByAge(age).map(things => Ok(things))
   }
 
+  def getThings42: Action[AnyContent] = Action.async { _ =>
+    thingsService.getThings42.map(things => Ok(things))
+  }
+
 }

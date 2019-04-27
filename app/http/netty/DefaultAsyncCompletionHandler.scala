@@ -48,6 +48,6 @@ class DefaultAsyncCompletionHandler[A](promise: Promise[HttpResponse[A]])(implic
 
   private def charsetFor(response: AHCResponse): Option[Charset] = for {
     contentType <- Option(response.getContentType)
-    charSet <- Option(HttpUtils.parseCharset(contentType))
+    charSet <- Option(HttpUtils.extractContentTypeCharsetAttribute(contentType))
   } yield charSet
 }

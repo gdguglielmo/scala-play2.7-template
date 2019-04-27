@@ -1,6 +1,5 @@
 package http
 
-import akka.stream.Materializer
 import play.api.libs.json.{JsSuccess, Reads}
 
 import scala.concurrent.{ExecutionContext, Future}

@@ -12,3 +12,5 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 POST    /test                       controllers.HomeController.createThing
 
 GET     /things                     controllers.HomeController.getThingsByAge(age: Int)
+
+GET     /things42                   controllers.HomeController.getThings42
